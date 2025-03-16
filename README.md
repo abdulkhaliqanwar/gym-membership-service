@@ -19,16 +19,16 @@ The **Gym Membership CLI Application** is a Python-based command-line interface 
 
 ## 📂 Project Structure
 ```
-phase-3-project/
+project-folder/
+│── cli.py
+│── crud.py
+│── models.py
+│── seed.py
 │── lib/
-│   ├── models.py  # SQLAlchemy models for Trainers and Members
-│   ├── database.py  # Database connection setup
-│── migrations/  # Alembic migration files
-│── cli.py  # Command Line Interface for user interaction
-│── seed.py  # Script to populate the database with fake data
-│── alembic.ini  # Alembic configuration file
-│── README.md  # Project documentation
-```
+│   ├── database.py
+│   ├── __init__.py
+│── migrations/
+│── README.md
 
 ## 🔧 Installation & Setup
 1. **Clone the repository**:
