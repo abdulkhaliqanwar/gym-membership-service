@@ -1,6 +1,5 @@
 import sys
-from lib.database import session
-from lib.models import Member, Trainer
+from crud import MemberCRUD, TrainerCRUD  # Import CRUD classes
 
 def main_menu():
     while True:
@@ -18,12 +17,12 @@ def main_menu():
         choice = input("Enter your choice: ")
         
         if choice == "1":
-            trainers = Trainer.get_all()
+            trainers = TrainerCRUD.get_all()
             for trainer in trainers:
                 print(trainer)
         
         elif choice == "2":
-            members = Member.get_all()
+            members = MemberCRUD.get_all()
             for member in members:
                 print(member)
         
@@ -34,7 +33,7 @@ def main_menu():
             phone = input("Phone: ")
             email = input("Email: ")
             expertise = input("Expertise: ")
-            Trainer.create(name, age, address, phone, email, expertise)
+            TrainerCRUD.create(name, age, address, phone, email, expertise)
             print("Trainer added successfully!")
         
         elif choice == "4":
@@ -45,33 +44,33 @@ def main_menu():
             email = input("Email: ")
             membership_type = input("Membership Type: ")
             trainer_id = int(input("Trainer ID: "))
-            Member.create(name, age, address, phone, email, membership_type, trainer_id)
+            MemberCRUD.create(name, age, address, phone, email, membership_type, trainer_id)
             print("Member added successfully!")
 
         elif choice == "5":
             trainer_id = int(input("Enter Trainer ID: "))
-            trainer = Trainer.find_by_id(trainer_id)
+            trainer = TrainerCRUD.find_by_id(trainer_id)
             print(trainer if trainer else "Trainer not found.")
 
         elif choice == "6":
             member_id = int(input("Enter Member ID: "))
-            member = Member.find_by_id(member_id)
+            member = MemberCRUD.find_by_id(member_id)
             print(member if member else "Member not found.")
 
         elif choice == "7":
             trainer_id = int(input("Enter Trainer ID to delete: "))
-            trainer = Trainer.find_by_id(trainer_id)
+            trainer = TrainerCRUD.find_by_id(trainer_id)
             if trainer:
-                trainer.delete()
+                TrainerCRUD.delete(trainer)
                 print("Trainer deleted.")
             else:
                 print("Trainer not found.")
 
         elif choice == "8":
             member_id = int(input("Enter Member ID to delete: "))
-            member = Member.find_by_id(member_id)
+            member = MemberCRUD.find_by_id(member_id)
             if member:
-                member.delete()
+                MemberCRUD.delete(member)
                 print("Member deleted.")
             else:
                 print("Member not found.")

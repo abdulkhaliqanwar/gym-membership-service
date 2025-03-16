@@ -1,7 +1,6 @@
-import random  # Import random
+import random
 from faker import Faker
-from lib.database import session
-from lib.models import Member, Trainer
+from crud import MemberCRUD, TrainerCRUD  # Import CRUD classes
 
 fake = Faker()
 
@@ -9,7 +8,7 @@ def seed_trainers(n=5):
     """Generate fake trainers."""
     trainers = []
     for _ in range(n):
-        trainer = Trainer.create(
+        trainer = TrainerCRUD.create(
             name=fake.name(),
             age=fake.random_int(min=25, max=60),
             address=fake.address(),
@@ -23,13 +22,13 @@ def seed_trainers(n=5):
 def seed_members(n=10):
     """Generate fake members and assign random trainers."""
     members = []
-    trainers = Trainer.get_all()  # Get existing trainers
+    trainers = TrainerCRUD.get_all()  # Get existing trainers
     if not trainers:
         trainers = seed_trainers()  # Ensure trainers exist
 
     for _ in range(n):
-        trainer = random.choice(trainers) if trainers else None  # ✅ Fixed here
-        member = Member.create(
+        trainer = random.choice(trainers) if trainers else None
+        member = MemberCRUD.create(
             name=fake.name(),
             age=fake.random_int(min=18, max=65),
             address=fake.address(),
